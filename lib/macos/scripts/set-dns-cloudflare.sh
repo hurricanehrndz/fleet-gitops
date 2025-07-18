@@ -6,10 +6,10 @@
 set_dns() {
     local service=$1
     echo "Setting DNS for $service..."
-    
+
     # Set DNS servers to 1.1.1.1 and 1.0.0.1 (primary and secondary)
     sudo networksetup -setdnsservers "$service" 1.1.1.1 1.0.0.1
-    
+
     # Show the current DNS settings
     echo "DNS servers for $service:"
     networksetup -getdnsservers "$service"
@@ -25,10 +25,11 @@ while IFS= read -r service; do
     if [[ $service != *"*"* ]]; then
         set_dns "$service"
     fi
-done <<< "$services"
+done <<<"$services"
 
 echo "DNS configuration complete!"
 echo ""
 echo "To verify your DNS settings:"
 echo "1. System Preferences > Network > Advanced > DNS"
 echo "2. Or run: scutil --dns"
+
